@@ -1,0 +1,4 @@
+//verify if a string is a md5 hash
+function (inputString) {
+	return (/[a-fA-F0-9]{32}/).test(inputString);
+};
