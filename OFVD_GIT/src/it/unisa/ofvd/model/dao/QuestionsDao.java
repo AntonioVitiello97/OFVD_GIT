@@ -2188,7 +2188,7 @@ public class QuestionsDao implements QuestionsDaoInterface {
 							Utility.info("REPORT: " + doc.get("_id") + " " + doc.get("total"));
 							
 							QuestionsDao questiondao = new QuestionsDao();
-							Collection<String> collDate = questiondao.getIstoGram(campo,(String) doc.get("_id"),provincia);
+							Collection<String> collDate = questiondao.getIstoGram(campo,(String) doc.get("_id"),provincia, type);
 							int count = 0;
 							if(collDate != null)
 							{
@@ -2218,7 +2218,7 @@ public class QuestionsDao implements QuestionsDaoInterface {
 				} else if (type.equals("hospital")) {
 					MongoClient client = DBMongoConnectionPool.createMongoDBConnection();
 					MongoCollection<Document> collection = DBMongoConnectionPool.selectCollection(client);
-
+					
 					AggregateIterable<Document> iterable = collection.aggregate(
 							Arrays.asList(new Document("$match", new Document("type", type).append("status", status)),
 									new Document("$group",
@@ -2230,15 +2230,27 @@ public class QuestionsDao implements QuestionsDaoInterface {
 							Utility.info("REPORT: " + doc.get("_id") + " " + doc.get("total"));
 							
 							QuestionsDao questiondao = new QuestionsDao();
-							String nome = questiondao.getNomeChart(campo,(String) doc.get("_id"));
-							if(!nome.equals("") && nome != null) {
-								String[] data = nome.split("/");
-								String giorno = data[0];
-								String mese = data[1];
-								String anno = data[2];
-								list.add(new ReportsModel(Integer.parseInt(giorno),Integer.parseInt(mese),Integer.parseInt(anno), doc.get("total").toString()));								
-							}
-							
+							Collection<String> collDate = questiondao.getIstoGram(campo,(String) doc.get("_id"),provincia, type);
+							int count = 0;
+							if(collDate != null)
+							{
+								for(String date : collDate)
+								{
+									String[] data = date.split("/");
+									String anno = data[2];
+									
+									for(String date2 : collDate)
+									{
+										String[] data2 = date2.split("/");
+										String anno2 = data2[2];
+										if(anno.equals(anno2))
+											count++;
+									}
+									list.add(new ReportsModel(provincia, anno, campo));
+									count = 0;
+								}
+								
+							}							
 						}
 					};
 
@@ -2263,7 +2275,7 @@ public class QuestionsDao implements QuestionsDaoInterface {
 	}
 	
 	@Override
-	public Collection<String> getIstoGram(String campo, String id, String provincia) {
+	public Collection<String> getIstoGram(String campo, String id, String provincia, String type) {
 		//
 		
 		Collection<String> collObj = new ArrayList<String>();		
@@ -2276,13 +2288,28 @@ public class QuestionsDao implements QuestionsDaoInterface {
 				@Override
 				public void apply(final Document obj) {
 					String answer = null;
-					if(provincia.equals((String) obj.get("ServiziSocialiProvincia")) || provincia.equals((String) obj.get("ProvinciaProntoSoccorso")) || provincia.equals((String) obj.get("ProvinciaCav")) || provincia.equals((String) obj.get("ProvinciaSportelloDiAscolto")))
+					if(type.equals("cav"))
 					{
+						if(provincia.equals((String) obj.get("ServiziSocialiProvincia")) || provincia.equals((String) obj.get("ProvinciaProntoSoccorso")) || provincia.equals((String) obj.get("ProvinciaCav")) || provincia.equals((String) obj.get("ProvinciaSportelloDiAscolto")))
+						{
 					
-						answer = (String) obj.get("DataCompilazione");		
+							answer = (String) obj.get("DataCompilazione");		
 						
-						collObj.add(answer);
+							collObj.add(answer);
+						}
 					}
+					//
+					else if(type.equals("hospital"))
+					{
+						if(provincia.equals((String) obj.get("ServiziSocialiProvincia")) || provincia.equals((String) obj.get("ProvinciaProntoSoccorso")) || provincia.equals((String) obj.get("ProvinciaCav")) || provincia.equals((String) obj.get("ProvinciaSportelloDiAscolto")))
+						{
+					
+							answer = (String) obj.get("DataCompilazione");		
+						
+							collObj.add(answer);
+						}
+					}
+					//
 				}
 			};
 			

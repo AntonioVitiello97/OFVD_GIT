@@ -122,6 +122,7 @@ if (account == null || (!account.isHospitalUser())) {
 	});
 	
 	var campo_selezionato = "";
+	var chart_selezionato = 0;
 	
 	/*
 	ID CHART
@@ -138,76 +139,76 @@ if (account == null || (!account.isHospitalUser())) {
 	}
 	
 	var VariabiliArray = [
-					//Nome campo visualizzato, nome campo DB, donut, map, calendar
-		new Variabile("Data Compilazione", "DataCompilazione" , "1", "0", "1"),
-	    new Variabile("Pronto Soccorso", "ProntoSoccorso", "1", "0", "0"),
-	    new Variabile("Luogo di nascita", "LuogoNascita", "1", "1", "0"),
-	    new Variabile("Provincia di nascita", "ProvinciaNascita" , "1", "0", "0"),
-	    new Variabile("Comune di nascita", "ComuneNascita", "1", "0", "0"),
-		//
-	    new Variabile("Cittadinanza italiana", "CittadinanzaIta" , "1", "0", "0"),
-	    new Variabile("Altra cittadinanza", "AltraCittadinanza" , "1", "0", "0"),
-	    new Variabile("Conoscenza lingua italiana", "ConoscenzaLinguaItaliana" , "1", "0", "0"),
-	    new Variabile("Mediatore culturale", "MediatoreCulturale" , "1", "0", "0"),
-	    new Variabile("Stato civile", "StatoCivile", "1", "0", "0"),
-	    
-	    new Variabile("Altro stato civile", "AltroStatoCivile", "1", "0", "0"),
-	    new Variabile("Figli", "Figli" , "1", "0", "0"),
-	    new Variabile("Numero figli minorenni", "NumeroFigliMinorenni" , "1", "0", "0"),
-	    new Variabile("Titolo di studio", "TitoloDiStudio" , "1", "0", "0"),
-	    new Variabile("Altro titolo di studio", "AltroTitoloDiStudio" , "1", "0", "0"),
-	    
-	    new Variabile("Professione", "Professione", "1", "0", "0"),
-	    new Variabile("Economicamente autonomo", "EconomicamenteAutonomo" , "1", "0", "0"),
-	    new Variabile("Primo accesso pronto soccorso", "PrimoAccessoProntoSoccorso" , "1", "0", "0"),
-	    new Variabile("Numero accessi ripetuti", "NumeroAccessiRipetuti" , "1", "0", "0"),
-	    new Variabile("Sfruttamento", "Sfruttamento" , "1", "0", "0"),
-	    
-	    new Variabile("Donna accompagnata InPS", "DonnaAccompagnataInPS", "1", "0", "0"),
-	    new Variabile("Altro donna accompagnata InPS", "AltroDonnaAccompagnataInPS" , "1", "0", "0"),
-	    new Variabile("Motivo Accesso InPS", "MotivoAccessoInPS" , "1", "0", "0"),
-	    new Variabile("Luogo di nascita presunto aggressore", "LuogoPresuntoAggressore" , "1", "1", "0"),
-	    new Variabile("Provincia di nascita presunto aggressore", "ProvinciaNascitaPresuntoAggressore" , "1", "0", "0"),
-	    
-	    new Variabile("Comune di nascita presunto aggressore", "ComuneNascitaPresuntoAggressore", "1", "0", "0"),
-	    new Variabile("Titolo di studio presunto aggressore", "TitoloStudioPresuntoAggressore" , "1", "0", "0"),
-	    new Variabile("Altro titolo di studio presunto aggressore", "AltroTitoloStudioPresuntoAggressore" , "1", "0", "0"),
-	    new Variabile("Professione presunto aggressore", "ProfessionePresuntoAggressore" , "1", "0", "0"),
-	    new Variabile("Fascia età presunto aggressore", "FasciaEtaPresuntoAggressore" , "1", "0", "0"),
-	    
-	    new Variabile("Rapporto vittima-aggressore", "RapportoVittimaAggressore", "1", "0", "0"),
-	    new Variabile("Tipologia familiare", "TipologiaFamiliare" , "1", "0", "0"),
-	    new Variabile("Altro rapporto vittima-aggressore", "AltroRapportoVittimaAggressore" , "1", "0", "0"),
-	    new Variabile("Aggressore servizi", "AggressoreServizi" , "1", "0", "0"),
-	    new Variabile("Tipologia servizi aggressore", "TipologiaServiziAggressore" , "1", "0", "0"),
-	    
-	    new Variabile("Altra tipologia servizi aggressore", "AltraTipologiaServiziAggressore", "1", "0", "0"),
-	    new Variabile("Precedenti penali", "PrecedentiPenali" , "1", "0", "0"),
-	    new Variabile("Brief_risk1", "Brief_risk1" , "1", "0", "0"),
-	    new Variabile("Brief_risk2", "Brief_risk2" , "1", "0", "0"),
-	    new Variabile("Brief_risk3", "Brief_risk3" , "1", "0", "0"),
-	    new Variabile("Brief_risk4", "Brief_risk4" , "1", "0", "0"),
-	    new Variabile("Brief_risk5", "Brief_risk5" , "1", "0", "0"),
-	    new Variabile("Brief_risk6", "Brief_risk6" , "1", "0", "0"),
-	    new Variabile("Brief_risk7", "Brief_risk7" , "1", "0", "0"),
-	    
-	    new Variabile("Conviventi", "Conviventi", "1", "0", "0"),
-	    new Variabile("Tipologia violenza", "TipologiaViolenza" , "1", "0", "0"),
-	    new Variabile("Altra violenza riferita", "AltroViolenzaRiferita" , "1", "0", "0"),
-	    new Variabile("Con figli minori", "ConFigliMinori" , "1", "0", "0"),
-	    new Variabile("Codice attributo", "CodiceAttributo" , "1", "0", "0"),
-	    
-	    new Variabile("Rete intra ospedaliera", "ReteIntraOspedaliera", "1", "0", "0"),
-	    new Variabile("Specifico rete intra ospedaliera", "SpecificoReteIntraOspedaliera" , "1", "0", "0"),
-	    new Variabile("Rete extra ospedaliera", "ReteExtraOspedaliera" , "1", "0", "0"),
-	    new Variabile("Forze dell'ordine", "ForzaDellOrdine" , "1", "0", "0"),
-	    new Variabile("Tempi di prognosi", "TempiDiPrognosi" , "1", "0", "0"),
-	    
-	    new Variabile("Referto", "Referto", "1", "0", "0"),
-	    new Variabile("Attestazioni", "Attestazioni" , "1", "0", "0"),
-	    new Variabile("Codice rosa", "CodiceRosa" , "1", "0", "0"),
-	   
-	];
+		//Nome campo visualizzato, nome campo DB, donut, map, calendar
+new Variabile("Data Compilazione", "DataCompilazione" , "1", "0", "1"),
+new Variabile("Pronto Soccorso", "ProntoSoccorso", "1", "0", "0"),
+new Variabile("Luogo di nascita", "LuogoNascita", "1", "1", "0"),
+new Variabile("Provincia di nascita", "ProvinciaNascita" , "1", "0", "0"),
+new Variabile("Comune di nascita", "ComuneNascita", "1", "0", "0"),
+//
+new Variabile("Cittadinanza italiana", "CittadinanzaIta" , "1", "0", "0"),
+new Variabile("Altra cittadinanza", "AltraCittadinanza" , "1", "0", "0"),
+new Variabile("Conoscenza lingua italiana", "ConoscenzaLinguaItaliana" , "1", "0", "0"),
+new Variabile("Mediatore culturale", "MediatoreCulturale" , "1", "0", "0"),
+new Variabile("Stato civile", "StatoCivile", "1", "0", "0"),
+
+new Variabile("Altro stato civile", "AltroStatoCivile", "1", "0", "0"),
+new Variabile("Figli", "Figli" , "1", "0", "0"),
+new Variabile("Numero figli minorenni", "NumeroFigliMinorenni" , "1", "0", "0"),
+new Variabile("Titolo di studio", "TitoloDiStudio" , "1", "0", "0"),
+new Variabile("Altro titolo di studio", "AltroTitoloDiStudio" , "1", "0", "0"),
+
+new Variabile("Professione", "Professione", "1", "0", "0"),
+new Variabile("Economicamente autonomo", "EconomicamenteAutonomo" , "1", "0", "0"),
+new Variabile("Primo accesso pronto soccorso", "PrimoAccessoProntoSoccorso" , "1", "0", "0"),
+new Variabile("Numero accessi ripetuti", "NumeroAccessiRipetuti" , "1", "0", "0"),
+new Variabile("Sfruttamento", "Sfruttamento" , "1", "0", "0"),
+
+new Variabile("Donna accompagnata InPS", "DonnaAccompagnataInPS", "1", "0", "0"),
+new Variabile("Altro donna accompagnata InPS", "AltroDonnaAccompagnataInPS" , "1", "0", "0"),
+new Variabile("Motivo Accesso InPS", "MotivoAccessoInPS" , "1", "0", "0"),
+new Variabile("Luogo di nascita presunto aggressore", "LuogoPresuntoAggressore" , "1", "1", "0"),
+new Variabile("Provincia di nascita presunto aggressore", "ProvinciaNascitaPresuntoAggressore" , "1", "0", "0"),
+
+new Variabile("Comune di nascita presunto aggressore", "ComuneNascitaPresuntoAggressore", "1", "0", "0"),
+new Variabile("Titolo di studio presunto aggressore", "TitoloStudioPresuntoAggressore" , "1", "0", "0"),
+new Variabile("Altro titolo di studio presunto aggressore", "AltroTitoloStudioPresuntoAggressore" , "1", "0", "0"),
+new Variabile("Professione presunto aggressore", "ProfessionePresuntoAggressore" , "1", "0", "0"),
+new Variabile("Fascia età presunto aggressore", "FasciaEtaPresuntoAggressore" , "1", "0", "0"),
+
+new Variabile("Rapporto vittima-aggressore", "RapportoVittimaAggressore", "1", "0", "0"),
+new Variabile("Tipologia familiare", "TipologiaFamiliare" , "1", "0", "0"),
+new Variabile("Altro rapporto vittima-aggressore", "AltroRapportoVittimaAggressore" , "1", "0", "0"),
+new Variabile("Aggressore servizi", "AggressoreServizi" , "1", "0", "0"),
+new Variabile("Tipologia servizi aggressore", "TipologiaServiziAggressore" , "1", "0", "0"),
+
+new Variabile("Altra tipologia servizi aggressore", "AltraTipologiaServiziAggressore", "1", "0", "0"),
+new Variabile("Precedenti penali", "PrecedentiPenali" , "1", "0", "0"),
+new Variabile("Brief_risk1", "Brief_risk1" , "1", "0", "0"),
+new Variabile("Brief_risk2", "Brief_risk2" , "1", "0", "0"),
+new Variabile("Brief_risk3", "Brief_risk3" , "1", "0", "0"),
+new Variabile("Brief_risk4", "Brief_risk4" , "1", "0", "0"),
+new Variabile("Brief_risk5", "Brief_risk5" , "1", "0", "0"),
+new Variabile("Brief_risk6", "Brief_risk6" , "1", "0", "0"),
+new Variabile("Brief_risk7", "Brief_risk7" , "1", "0", "0"),
+
+new Variabile("Conviventi", "Conviventi", "1", "0", "0"),
+new Variabile("Tipologia violenza", "TipologiaViolenza" , "1", "0", "0"),
+new Variabile("Altra violenza riferita", "AltroViolenzaRiferita" , "1", "0", "0"),
+new Variabile("Con figli minori", "ConFigliMinori" , "1", "0", "0"),
+new Variabile("Codice attributo", "CodiceAttributo" , "1", "0", "0"),
+
+new Variabile("Rete intra ospedaliera", "ReteIntraOspedaliera", "1", "0", "0"),
+new Variabile("Specifico rete intra ospedaliera", "SpecificoReteIntraOspedaliera" , "1", "0", "0"),
+new Variabile("Rete extra ospedaliera", "ReteExtraOspedaliera" , "1", "0", "0"),
+new Variabile("Forze dell'ordine", "ForzaDellOrdine" , "1", "0", "0"),
+new Variabile("Tempi di prognosi", "TempiDiPrognosi" , "1", "0", "0"),
+
+new Variabile("Referto", "Referto", "1", "0", "0"),
+new Variabile("Attestazioni", "Attestazioni" , "1", "0", "0"),
+new Variabile("Codice rosa", "CodiceRosa" , "1", "0", "0"),
+
+];
 
 	function addVariabili() {
 			
@@ -218,8 +219,24 @@ if (account == null || (!account.isHospitalUser())) {
 						"<option value=\""+VariabiliArray[i].nomeDB+"\">"
 								+ VariabiliArray[i].nome + "</option>");
 			}
+	
+		for (var i = 0; i < VariabiliArray.length; i++) {
+			$(
+				'#variabile_select2')
+				.append(
+						"<option value=\""+VariabiliArray[i].nomeDB+"\">"
+								+ VariabiliArray[i].nome + "</option>");
+			}
+		
+		for (var i = 0; i < VariabiliArray.length; i++) {
+			$(
+				'#variabile_select3')
+				.append(
+						"<option value=\""+VariabiliArray[i].nomeDB+"\">"
+								+ VariabiliArray[i].nome + "</option>");
+			}
 			
-		}
+	}
 	
 	function addChart() 
 	{
@@ -229,33 +246,97 @@ if (account == null || (!account.isHospitalUser())) {
 	    	{
 				if(VariabiliArray[i].donut == 1)
 				{
-					$('#idDonut').show();					
+					if(chart_selezionato == 1)
+						$('#idDonut').show();	
+					else if(chart_selezionato == 2)
+						$('#idDonut2').show();
+					else if(chart_selezionato == 3)
+						$('#idDonut3').show();
 				}
 				
 				if(VariabiliArray[i].world_map == 1)
 				{
-					$('#idWorldMap').show();
+					if(chart_selezionato == 1)
+						$('#idWorldMap').show();
+					else if(chart_selezionato == 2)
+						$('#idWorldMap2').show();
+					else if(chart_selezionato == 3)
+						$('#idWorldMap3').show();
 				}
 				
 				if(VariabiliArray[i].calendar == 1)
 				{
-					$('#idCalendar').show();
+					if(chart_selezionato == 1)
+						$('#idCalendar').show();
+					if(chart_selezionato == 2)
+						$('#idCalendar2').show();
+					if(chart_selezionato == 3)
+						$('#idCalendar3').show();
 				}
 	    	}
 		
 		}
 	}
 	
+	//
+	
+		function addProvince() {
+		var object_support = new Object();
+		object_support.action = "viewProvince";
+		$
+				.ajax({
+					url : "../Support",
+					type : 'GET',
+					data : {
+						elements : JSON.stringify(object_support)
+					},
+					dataType : "JSON",
+					contentType : 'application/json',
+					mimeType : 'application/json',
+
+					success : function(jsonStr) {
+						$('#second_var')
+								.empty()
+								.append(
+										"<option value=\"Scegli...\" selected>Scegli...</option>");
+						for (var ii = 0; ii < jsonStr.length; ii++) {
+							$('#second_var').append(
+									"<option value=\""+jsonStr[ii]+"\">"
+											+ jsonStr[ii] + "</option>");
+						}
+					}
+				});
+
+	}
+	
+	//
+	
 	function load() {
+		addProvince();
+		
 		addVariabili();
 		//
 		$('#div_selezioneChart').hide();
+		$('#div_selezioneChart2').hide();
+		$('#div_selezioneChart3').hide();
+		//
 		$('#div_chart_identificatio').hide();
+		$('#div_chart_identificatio2').hide();
+		$('#div_chart_identificatio3').hide();
 		//
 		$('#idDonut').hide();
 		$('#idWorldMap').hide();
 		$('#idCalendar').hide();
-		
+		//
+		$('#idDonut2').hide();
+		$('#idWorldMap2').hide();
+		$('#idCalendar2').hide();
+		//
+		$('#idDonut3').hide();
+		$('#idWorldMap3').hide();
+		$('#idCalendar3').hide();
+		//
+		$('#div_selezioneSecondaVariabile').hide();
 		
 		
 		
@@ -275,6 +356,7 @@ if (account == null || (!account.isHospitalUser())) {
 								question.status = "inviata";
 								question.description = "donut";
 								question.campo = campo_selezionato;
+								question.provincia = "";
 
 								var request = $.ajax({
 									url : "../Question",
@@ -312,9 +394,9 @@ if (account == null || (!account.isHospitalUser())) {
 												title : this.label,
 												pieHole : 0.4,
 											};
+											
+											var chart = new google.visualization.PieChart(document.getElementById('chart'));
 
-											var chart = new google.visualization.PieChart(document
-													.getElementById('chart'));
 											chart.draw(data, options);
 										
 									}
@@ -324,7 +406,6 @@ if (account == null || (!account.isHospitalUser())) {
 							}
 							else if (this.value == 'Map_Chart') 
 							{
-								//
 								$('#div_chart_identificatio').show();
 								question = {};
 								question.action = "report";
@@ -332,6 +413,7 @@ if (account == null || (!account.isHospitalUser())) {
 								question.status = "inviata";
 								question.description = "world_map";
 								question.campo = campo_selezionato;
+								question.provincia = "";
 
 								var request = $
 								.ajax({
@@ -380,9 +462,7 @@ if (account == null || (!account.isHospitalUser())) {
 												}
 											};
 
-											var chart = new google.visualization.GeoChart(
-													document.getElementById('chart'));
-
+											var chart = new google.visualization.GeoChart(document.getElementById('chart'));
 											chart.draw(data, options);
 										}
 									}
@@ -399,6 +479,7 @@ if (account == null || (!account.isHospitalUser())) {
 								question.status = "inviata";
 								question.description = "calendar";
 								question.campo = campo_selezionato;
+								question.provincia = "";
 
 								var request = $
 								.ajax({
@@ -438,9 +519,8 @@ if (account == null || (!account.isHospitalUser())) {
 										       
 										       dataTable.addRows(list);
 										       
-										       var chart = new google.visualization.Calendar(
-										    		   document.getElementById('chart'));
-
+											   var chart = new google.visualization.Calendar(document.getElementById('chart'));
+												
 										       var options = {
 										         title: "Numero di domande inviate",
 										         height: 350,
@@ -454,9 +534,472 @@ if (account == null || (!account.isHospitalUser())) {
 							//
 							else
 							{
-								$('#div_chart_identificatio').hide();
+									$('#div_chart_identificatio').show();
 							}
 					});
+					
+					//----------------------------2 Blocco---------------------------------------------------------------
+					
+					$('#chart_select2').change(
+							function() 
+							{
+								if (this.value == 'Donut_Chart') 
+								{
+								$('#div_chart_identificatio2').show();
+								question = {};
+								question.action = "report";
+								question.type = "hospital";
+								question.status = "inviata";
+								question.description = "donut";
+								question.campo = campo_selezionato;
+								question.provincia = "";
+
+								var request = $.ajax({
+									url : "../Question",
+									type : "GET",
+									data : {
+										elements : JSON.stringify(question)
+									},
+									dataType : "JSON",
+									contentType : 'application/json',
+									mimeType : 'application/json',
+
+									success : function(jsonStr) {
+										var list = [];
+										var list1 = [];
+										list1.push("Descrizione");
+										list1.push("# Domande");
+
+										list.push(list1);
+
+										for (i = 0; i < jsonStr.length; i++) {
+											list1 = [];
+											list1.push(jsonStr[i]['descrizione']);
+											list1.push(parseInt(jsonStr[i]['count']));
+											list.push(list1)
+										}
+
+										google.charts.load("current", {
+											packages : [ "corechart" ]
+										});
+										google.charts.setOnLoadCallback(drawChart);
+										function drawChart() {
+											var data = google.visualization.arrayToDataTable(list);
+
+											var options = {
+												title : this.label,
+												pieHole : 0.4,
+											};
+											
+											var chart = new google.visualization.PieChart(document.getElementById('chart2'));
+
+											chart.draw(data, options);
+										
+									}
+								}
+								});
+							
+							}
+							else if (this.value == 'Map_Chart') 
+							{
+								$('#div_chart_identificatio2').show();
+								question = {};
+								question.action = "report";
+								question.type = "hospital";
+								question.status = "inviata";
+								question.description = "world_map";
+								question.campo = campo_selezionato;
+								question.provincia = "";
+
+								var request = $
+								.ajax({
+									url : "../Question",
+									type : "GET",
+									data : {
+										elements : JSON.stringify(question)
+									},
+									dataType : "JSON",
+									contentType : 'application/json',
+									mimeType : 'application/json',
+
+									success : function(jsonStr) {
+
+										var list = [];
+										var list1 = [];
+										list1.push("Nazione");
+										list1.push("#");
+
+										list.push(list1);
+
+										for (i = 0; i < jsonStr.length; i++) {
+											list1 = [];
+											list1.push(jsonStr[i]['descrizione']);
+											list1.push(parseInt(jsonStr[i]['count']));
+											list.push(list1)
+										}
+
+										//Grafico
+										google.charts
+												.load(
+														'current',
+														{
+															'packages' : [ 'geochart' ],
+															'mapsApiKey' : 'AIzaSyCx60FMdmquosh8goQg6UrjmhTmk81HWMo'
+														});
+										google.charts.setOnLoadCallback(drawRegionsMap);
+
+										function drawRegionsMap() {
+											var data = google.visualization
+													.arrayToDataTable(list);
+											var options = {
+												title : 'Paese di origine delle donne maltrattate/vittime di violenza',
+												colorAxis : {
+													colors : [ 'cyan', 'blue' ]
+												}
+											};
+
+											var chart = new google.visualization.GeoChart(document.getElementById('chart2'));
+											chart.draw(data, options);
+										}
+									}
+								});
+							}
+							//
+							else if (this.value == 'Calendar_Chart') 
+							{
+								//
+								$('#div_chart_identificatio2').show();
+								question = {};
+								question.action = "report";
+								question.type = "hospital";
+								question.status = "inviata";
+								question.description = "calendar";
+								question.campo = campo_selezionato;
+								question.provincia = "";
+
+								var request = $
+								.ajax({
+									url : "../Question",
+									type : "GET",
+									data : {
+										elements : JSON.stringify(question)
+									},
+									dataType : "JSON",
+									contentType : 'application/json',
+									mimeType : 'application/json',
+
+									success : function(jsonStr) {
+
+										var list = [];
+										var list1 = [];
+
+										for (i = 0; i < jsonStr.length; i++) {
+											list1 = [];
+											var giorno = jsonStr[i]['giorno'];
+											var mese = jsonStr[i]['mese'];
+											var anno = jsonStr[i]['anno'];
+											list1.push(new Date(anno, mese, giorno));
+											list1.push(parseInt(jsonStr[i]['count']));
+
+											list.push(list1)
+										}
+
+										//Grafico
+										google.charts.load("current", {packages:["calendar"]});
+      									google.charts.setOnLoadCallback(drawCalendarChart);
+
+										function drawCalendarChart() {
+											var dataTable = new google.visualization.DataTable();
+										       dataTable.addColumn({ type: 'date', id: 'Date' });
+										       dataTable.addColumn({ type: 'number', id: 'Won/Loss' });
+										       
+										       dataTable.addRows(list);
+										       
+											   var chart = new google.visualization.Calendar(document.getElementById('chart2'));
+												
+										       var options = {
+										         title: "Numero di domande inviate",
+										         height: 350,
+										       };
+
+										       chart.draw(dataTable, options);
+										}
+									}
+								});
+							}
+							//
+							else
+							{
+									$('#div_chart_identificatio2').show();
+							}
+					});
+					
+					
+					
+					//---------------------------------------------------------------------------------------------------
+					
+					//----------------------------3 Blocco---------------------------------------------------------------
+					$('#chart_select3').change(
+							function() 
+							{
+								if (this.value == 'Donut_Chart') 
+								{
+								$('#div_chart_identificatio3').show();
+								question = {};
+								question.action = "report";
+								question.type = "hospital";
+								question.status = "inviata";
+								question.description = "donut";
+								question.campo = campo_selezionato;
+								question.provincia = "";
+
+								var request = $.ajax({
+									url : "../Question",
+									type : "GET",
+									data : {
+										elements : JSON.stringify(question)
+									},
+									dataType : "JSON",
+									contentType : 'application/json',
+									mimeType : 'application/json',
+
+									success : function(jsonStr) {
+										var list = [];
+										var list1 = [];
+										list1.push("Descrizione");
+										list1.push("# Domande");
+
+										list.push(list1);
+
+										for (i = 0; i < jsonStr.length; i++) {
+											list1 = [];
+											list1.push(jsonStr[i]['descrizione']);
+											list1.push(parseInt(jsonStr[i]['count']));
+											list.push(list1)
+										}
+
+										google.charts.load("current", {
+											packages : [ "corechart" ]
+										});
+										google.charts.setOnLoadCallback(drawChart);
+										function drawChart() {
+											var data = google.visualization.arrayToDataTable(list);
+
+											var options = {
+												title : this.label,
+												pieHole : 0.4,
+											};
+											
+											var chart = new google.visualization.PieChart(document.getElementById('chart3'));
+
+											chart.draw(data, options);
+										
+									}
+								}
+								});
+							
+							}
+							else if (this.value == 'Map_Chart') 
+							{
+								$('#div_chart_identificatio3').show();
+								question = {};
+								question.action = "report";
+								question.type = "hospital";
+								question.status = "inviata";
+								question.description = "world_map";
+								question.campo = campo_selezionato;
+								question.provincia = "";
+
+								var request = $
+								.ajax({
+									url : "../Question",
+									type : "GET",
+									data : {
+										elements : JSON.stringify(question)
+									},
+									dataType : "JSON",
+									contentType : 'application/json',
+									mimeType : 'application/json',
+
+									success : function(jsonStr) {
+
+										var list = [];
+										var list1 = [];
+										list1.push("Nazione");
+										list1.push("#");
+
+										list.push(list1);
+
+										for (i = 0; i < jsonStr.length; i++) {
+											list1 = [];
+											list1.push(jsonStr[i]['descrizione']);
+											list1.push(parseInt(jsonStr[i]['count']));
+											list.push(list1)
+										}
+
+										//Grafico
+										google.charts
+												.load(
+														'current',
+														{
+															'packages' : [ 'geochart' ],
+															'mapsApiKey' : 'AIzaSyCx60FMdmquosh8goQg6UrjmhTmk81HWMo'
+														});
+										google.charts.setOnLoadCallback(drawRegionsMap);
+
+										function drawRegionsMap() {
+											var data = google.visualization
+													.arrayToDataTable(list);
+											var options = {
+												title : 'Paese di origine delle donne maltrattate/vittime di violenza',
+												colorAxis : {
+													colors : [ 'cyan', 'blue' ]
+												}
+											};
+
+											var chart = new google.visualization.GeoChart(document.getElementById('chart3'));
+											chart.draw(data, options);
+										}
+									}
+								});
+							}
+							//
+							else if (this.value == 'Calendar_Chart') 
+							{
+								//
+								$('#div_chart_identificatio3').show();
+								question = {};
+								question.action = "report";
+								question.type = "hospital";
+								question.status = "inviata";
+								question.description = "calendar";
+								question.campo = campo_selezionato;
+								question.provincia = "";
+
+								var request = $
+								.ajax({
+									url : "../Question",
+									type : "GET",
+									data : {
+										elements : JSON.stringify(question)
+									},
+									dataType : "JSON",
+									contentType : 'application/json',
+									mimeType : 'application/json',
+
+									success : function(jsonStr) {
+
+										var list = [];
+										var list1 = [];
+
+										for (i = 0; i < jsonStr.length; i++) {
+											list1 = [];
+											var giorno = jsonStr[i]['giorno'];
+											var mese = jsonStr[i]['mese'];
+											var anno = jsonStr[i]['anno'];
+											list1.push(new Date(anno, mese, giorno));
+											list1.push(parseInt(jsonStr[i]['count']));
+
+											list.push(list1)
+										}
+
+										//Grafico
+										google.charts.load("current", {packages:["calendar"]});
+      									google.charts.setOnLoadCallback(drawCalendarChart);
+
+										function drawCalendarChart() {
+											var dataTable = new google.visualization.DataTable();
+										       dataTable.addColumn({ type: 'date', id: 'Date' });
+										       dataTable.addColumn({ type: 'number', id: 'Won/Loss' });
+										       
+										       dataTable.addRows(list);
+										       
+											   var chart = new google.visualization.Calendar(document.getElementById('chart3'));
+												
+										       var options = {
+										         title: "Numero di domande inviate",
+										         height: 350,
+										       };
+
+										       chart.draw(dataTable, options);
+										}
+									}
+								});
+							}
+							//
+							else
+							{
+									$('#div_chart_identificatio3').show();
+							}
+					});
+					
+					
+					
+					//---------------------------------------------------------------------------------------------------
+					
+					
+					//----------------------------4 Blocco---------------------------------------------------------------
+					$('#second_var').change(
+							function() 
+							{
+								$('#div_chart_istogramma').show();
+								question = {};
+								question.action = "report";
+								question.type = "hospital";
+								question.status = "inviata";
+								question.description = "istogramma";
+								question.campo = "ServiziSocialiProvincia";
+								question.provincia = this.value;
+
+								var request = $.ajax({
+									url : "../Question",
+									type : "GET",
+									data : {
+										elements : JSON.stringify(question)
+									},
+									dataType : "JSON",
+									contentType : 'application/json',
+									mimeType : 'application/json',
+
+									success : function(jsonStr) {
+										var list = [];
+										var list1 = [];
+										list1.push("Descrizione");
+										list1.push("Anno");
+
+										list.push(list1);
+
+										for (i = 0; i < jsonStr.length; i++) {
+											list1 = [];
+											list1.push(jsonStr[i]['descrizione']);
+											list1.push(parseInt(jsonStr[i]['count']));
+											
+											list.push(list1)
+										}
+
+										google.charts.load("current", {packages:["corechart"]});
+									      google.charts.setOnLoadCallback(drawChart);
+									      function drawChart() {
+									        var data = google.visualization.arrayToDataTable(list);
+									        
+									        var options = {
+									                title: 'Numero domande in base all anno',
+									                legend: { position: 'none' },
+									              };
+
+									        var chart = new google.visualization.Histogram(document.getElementById('istogramma'));
+									        chart.draw(data, options);
+									      
+										}
+									} 
+								});
+							});
+					
+					
+					
+					//---------------------------------------------------------------------------------------------------
+
+					
 					$('#variabile_select').change(
 							function() 
 							{
@@ -471,6 +1014,7 @@ if (account == null || (!account.isHospitalUser())) {
 									$('#chart_select').val("Scegli...");
 									$('#div_chart_identificatio').hide();
 									campo_selezionato = this.value;
+									chart_selezionato = 1;
 									addChart();
 								
 								}
@@ -479,7 +1023,74 @@ if (account == null || (!account.isHospitalUser())) {
 									$('#div_selezioneChart').hide();
 									$('#div_chart_identificatio').hide();
 								}
-							});			
+							});
+					
+					$('#variabile_select2').change(
+							function() 
+							{
+								if (this.value != 'Scegli...') 
+								{	
+									//
+									$('#idDonut2').hide();
+									$('#idWorldMap2').hide();
+									$('#idCalendar2').hide();
+									//
+									$('#div_selezioneChart2').show();
+									$('#chart_select2').val("Scegli...");
+									$('#div_chart_identificatio2').hide();
+									campo_selezionato = this.value;
+									chart_selezionato = 2;
+									addChart();
+								
+								}
+								else
+								{
+									$('#div_selezioneChart2').hide();
+									$('#div_chart_identificatio2').hide();
+								}
+							});
+					
+					$('#variabile_select3').change(
+							function() 
+							{
+								if (this.value != 'Scegli...') 
+								{	
+									//
+									$('#idDonut3').hide();
+									$('#idWorldMap3').hide();
+									$('#idCalendar3').hide();
+									//
+									$('#div_selezioneChart3').show();
+									$('#chart_select3').val("Scegli...");
+									$('#div_chart_identificatio3').hide();
+									campo_selezionato = this.value;
+									chart_selezionato = 3;
+									addChart();
+								
+								}
+								else
+								{
+									$('#div_selezioneChart3').hide();
+									$('#div_chart_identificatio3').hide();
+								}
+							});
+					
+					$('#first_var').change(
+							function() 
+							{
+								if (this.value != 'Scegli...') 
+								{	
+									$('#div_selezioneSecondaVariabile').show();
+									$('#second_var').val("Scegli...");
+									$('#div_chart_istogramma').hide();
+								}
+								else
+								{
+									$('#div_chart_istogramma').hide();
+									$('#div_selezioneSecondaVariabile').hide();
+								}
+							});
+					
 				});									
 
 }
@@ -545,38 +1156,163 @@ if (account == null || (!account.isHospitalUser())) {
         <!-- pie chart start -->
         <div class="row">
           
-           <div class="form-group" id="div_selezioneVariabile" style="width: 1100px;">
-                    <div class="form-group">
-                      <div class="form-holder">
-                        <label class="form-label" style="font-size: medium;"><span class="h6s">Variabile</span>&nbsp;</label> <select class="custom-select" id="variabile_select">
-                          <option  value="Scegli..." selected>Scegli</option> 
-                        </select>
-                      </div>
-            </div>
+          <!-- Primo Blocco, Alto Sinistra -->
+           <div class="form-group" id="div_block_chart1"  style="width: 515px; height: 515px; background-color:white; border: 1px solid #201a56; margin-top:5px;">
+          		<div class="form-group">
+               		<div class="form-holder">
+				           <div class="form-group" id="div_selezioneVariabile">
+				            <div class="form-group">
+				                      <div class="form-holder">
+				                        <label class="form-label" style="font-size: medium; margin-left:10px; margin-top:10px;"><span class="h6s">Variabile</span>&nbsp;</label> 
+				                        <select class="custom-select" id="variabile_select" style="width: 500px; margin-left:7px;">
+				                          <option  value="Scegli..." selected>Scegli</option> 
+				                        </select>
+				                      </div>
+				             </div>
+				            </div>
            
-          
-          <div class="form-group" id="div_selezioneChart">
-          	  <div class="form-group">
-               <div class="form-holder">
-                  <label class="form-label" style="font-size: medium;"><span class="h6s">Tipologia charts</span>&nbsp;</label> <select class="custom-select" id="chart_select">
-                    <option value="Scegli..." selected>Scegli</option>
-                    <option id= "idDonut" value="Donut_Chart">Donut Chart</option>
-                    <option id= "idWorldMap" value="Map_Chart">World Map Chart</option>
-                    <option id= "idCalendar" value="Calendar_Chart">Calendar Chart</option>
-                    </select>
-                </div>
-            </div>
-            </div>
+         
+               
+		         		 <div class="form-group" id="div_selezioneChart">
+		          	  		<div class="form-group">
+		              			 <div class="form-holder">
+		                 			 <label class="form-label" style="font-size: medium; margin-left:10px; margin-top:10px;"><span class="h6s">Tipologia charts</span>&nbsp;</label> 
+		                 			 <select class="custom-select" id="chart_select" style="width: 500px; margin-left:7px;">
+			                   			 <option value="Scegli..." selected>Scegli</option>
+			                    		 <option id= "idDonut" value="Donut_Chart">Donut Chart</option>
+			                    		 <option id= "idWorldMap" value="Map_Chart">World Map Chart</option>
+			                    		 <option id= "idCalendar" value="Calendar_Chart">Calendar Chart</option>
+		                    		 </select>
+		                		</div>
+		            		</div>
+		            	</div>
                   
- 		  <div id="div_chart_identificatio">
-             <div class="col-lg-12 mt-5">
-            	<div class="card">
-              		<div id="chart" style="width: 1000px; height: 500px;"></div>
-            	</div>
-          	</div>
-          </div>
-
+			 		  <div id="div_chart_identificatio">
+			
+			              		<div id="chart" style="width: 470px; height: 250px;"></div>
+			            	
+			          </div>
+					</div>
+				</div>
+			  </div>
+		
+		          <!-- Secondo Blocco, Alto Destra -->
+           <div class="form-group" id="div_block_chart1"  style="width: 515px; height: 515px; background-color:white; border: 1px solid #201a56; margin-top:5px;">
+          		<div class="form-group">
+               		<div class="form-holder">
+				           <div class="form-group" id="div_selezioneVariabile">
+				            <div class="form-group">
+				                      <div class="form-holder">
+				                        <label class="form-label" style="font-size: medium; margin-left:10px; margin-top:10px;"><span class="h6s">Variabile</span>&nbsp;</label> 
+				                        <select class="custom-select" id="variabile_select2" style="width: 500px; margin-left:7px;">
+				                          <option  value="Scegli..." selected>Scegli</option> 
+				                        </select>
+				                      </div>
+				             </div>
+				            </div>
+           
+         
+               
+		         		 <div class="form-group" id="div_selezioneChart2">
+		          	  		<div class="form-group">
+		              			 <div class="form-holder">
+		                 			 <label class="form-label" style="font-size: medium; margin-left:10px; margin-top:10px;"><span class="h6s">Tipologia charts</span>&nbsp;</label> 
+		                 			 <select class="custom-select" id="chart_select2" style="width: 500px; margin-left:7px;">
+			                   			 <option value="Scegli..." selected>Scegli</option>
+			                    		 <option id= "idDonut2" value="Donut_Chart">Donut Chart</option>
+			                    		 <option id= "idWorldMap2" value="Map_Chart">World Map Chart</option>
+			                    		 <option id= "idCalendar2" value="Calendar_Chart">Calendar Chart</option>
+		                    		 </select>
+		                		</div>
+		            		</div>
+		            	</div>
+                  
+			 		  <div id="div_chart_identificatio2">
+			
+			              		<div id="chart2" style="width: 470px; height: 250px;"></div>
+			            	
+			          </div>
+					</div>
+				</div>
+			  </div>
+			  
+	 		          <!-- Terzo Blocco, Basso Sinistra -->
+           <div class="form-group" id="div_block_chart1"  style="width: 515px; height: 515px; background-color:white; border: 1px solid #201a56;">
+          		<div class="form-group">
+               		<div class="form-holder">
+				           <div class="form-group" id="div_selezioneVariabile">
+				            <div class="form-group">
+				                      <div class="form-holder">
+				                        <label class="form-label" style="font-size: medium; margin-left:10px; margin-top:10px;"><span class="h6s">Variabile</span>&nbsp;</label> 
+				                        <select class="custom-select" id="variabile_select3" style="width: 500px; margin-left:7px;">
+				                          <option  value="Scegli..." selected>Scegli</option> 
+				                        </select>
+				                      </div>
+				             </div>
+				            </div>
           
+		      <div class="form-group" id="div_selezioneChart3">
+		          	  		<div class="form-group">
+		              			 <div class="form-holder">
+		                 			 <label class="form-label" style="font-size: medium; margin-left:10px; margin-top:10px;"><span class="h6s">Tipologia charts</span>&nbsp;</label> 
+		                 			 <select class="custom-select" id="chart_select3" style="width: 500px; margin-left:7px;">
+			                   			 <option value="Scegli..." selected>Scegli</option>
+			                    		 <option id= "idDonut3" value="Donut_Chart">Donut Chart</option>
+			                    		 <option id= "idWorldMap3" value="Map_Chart">World Map Chart</option>
+			                    		 <option id= "idCalendar3" value="Calendar_Chart">Calendar Chart</option>
+		                    		 </select>
+		                		</div>
+		            		</div>
+		            	</div>
+                  
+			 		  <div id="div_chart_identificatio3">
+			
+			              		<div id="chart3" style="width: 470px; height: 250px;"></div>
+			            	
+			          </div>
+					</div>
+				</div>
+			  </div>
+          
+          
+           <!-- Secondo Blocco, Basso Destra -->
+            <!-- Istogramma Variabile doppia -->
+           <div class="form-group" id="div_block_chart1"  style="width: 515px; height: 515px; background-color:white; border: 1px solid #201a56;">
+          		<div class="form-group">
+               		<div class="form-holder">
+				           <div class="form-group" id="div_selezioneVariabile">
+				            <div class="form-group">
+				                      <div class="form-holder">
+				                        <label class="form-label" style="font-size: medium; margin-left:10px; margin-top:10px;"><span class="h6s">Variabile</span>&nbsp;</label> 
+				                        <select class="custom-select" id="first_var" style="width: 500px; margin-left:7px;">
+				                          <option  value="Scegli..." selected>Scegli</option>
+				                          <option  value="Provincia">Provincia</option>  
+				                        </select>
+				                      </div>
+				             </div>
+				            </div>
+           
+         
+               
+		         		 <div class="form-group" id="div_selezioneSecondaVariabile">
+		          	  		<div class="form-group">
+		              			 <div class="form-holder">
+		                 			 <label class="form-label" style="font-size: medium; margin-left:10px; margin-top:10px;"><span class="h6s">Seconda Variabile</span>&nbsp;</label> 
+		                 			 <select class="custom-select" id="second_var" style="width: 500px; margin-left:7px;">
+			                   			 <option value="Scegli..." selected>Scegli</option>		           
+		                    		 </select>
+		                		</div>
+		            		</div>
+		            	</div>
+                  
+			 		  <div id="div_chart_istogramma">
+			
+			              		<div id="istogramma" style="width: 470px; height: 250px;"></div>
+			            	
+			          </div>
+					</div>
+				</div>
+			  </div>
         
         <!-- pie chart end -->
       </div>
@@ -585,7 +1321,6 @@ if (account == null || (!account.isHospitalUser())) {
     </div> 
     <%@include file="../common/footer.jsp"%>
      
-      </div>
   <!-- bootstrap 4 js -->
   <script src="../assets/js/popper.min.js"></script>
   <script src="../assets/bootstrap/js/bootstrap.min.js"></script>

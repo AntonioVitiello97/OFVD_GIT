@@ -35,7 +35,7 @@ public interface QuestionsDaoInterface {
 	
 	public String getNomeChart(String campo, String id); 
 	
-	public Collection<String> getIstoGram(String campo, String id, String provincia);
+	public Collection<String> getIstoGram(String campo, String id, String provincia, String type);
 	
 	public Collection<ReportsModel> report(String type, String status, String description, String campo, String provincia);
 	
