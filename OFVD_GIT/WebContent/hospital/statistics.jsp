@@ -1275,7 +1275,7 @@ new Variabile("Codice rosa", "CodiceRosa" , "1", "0", "0"),
 			  </div>
           
           
-           <!-- Secondo Blocco, Basso Destra -->
+           <!-- Secondo Blocco, Basso Destra  -->
             <!-- Istogramma Variabile doppia -->
            <div class="form-group" id="div_block_chart1"  style="width: 515px; height: 515px; background-color:white; border: 1px solid #201a56;">
           		<div class="form-group">

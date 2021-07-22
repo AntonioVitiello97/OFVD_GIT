@@ -33,7 +33,7 @@ import it.unisa.ofvd.utils.Utility;
 public class QuestionsDao implements QuestionsDaoInterface {
 
 	/**
-	 * Status: Inviata to Bozze (admin)
+	 * Status: Inviata to Bozze (admin) 
 	 */
 	@Override
 	public void changeStatus(String id_question) {

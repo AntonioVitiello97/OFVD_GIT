@@ -14,7 +14,7 @@ public interface QuestionsDaoInterface {
 	// inviata --> bozze
 	public void changeStatus(String id_question);
 
-	public QuestionsModel retrieve(String id_question);
+	public QuestionsModel retrieve(String id_question); 
 
 	public void create(QuestionsModel question);
 
