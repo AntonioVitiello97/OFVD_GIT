@@ -5,7 +5,7 @@
         auth="Container"
         driverClassName="com.mysql.cj.jdbc.Driver"
         type="javax.sql.DataSource"
-        username="ofvd"
-        password="ofvd_178@cx"
+        username=""
+        password=""
         url="jdbc:mysql://localhost:3306/ofvd_access?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;autoReconnect=true&amp;serverTimezone=UTC&amp;useSSL=false&amp;allowPublicKeyRetrieval=true"/>
 </Context>
